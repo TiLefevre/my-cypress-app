@@ -11,7 +11,9 @@ jobs:
       - name: Initiliaze cache
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies and build project
@@ -28,7 +30,9 @@ jobs:
       - name: Cache recovery
         uses: actions/cache@v3
         with:
-          path: node_modules
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Run E2E
