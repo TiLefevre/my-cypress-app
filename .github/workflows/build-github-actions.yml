@@ -57,7 +57,7 @@ jobs:
       - name: Connect to ssh
         run: |
           chmod 600 secret.pem
-          ssh -o StrictHostKeyChecking=no -i secret.pem ubuntu@44.202.120.253
+          ssh -i secret.pem ubuntu@44.202.120.253
 
       - name: Deploy
         run: |
