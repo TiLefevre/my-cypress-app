@@ -2,11 +2,17 @@ name: build-github-actions
 run-name: Build by -> ${{ github.actor }}
 on: [push]
 jobs:
-  build-project:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - name: Build project
         uses: actions/checkout@v3
+
+      - name: cache
+        uses: actions/cache/save@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: npm install
@@ -14,56 +20,18 @@ jobs:
       - name: Build project assets
         run: npm run build
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          # caching node_modules
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-      - name: Cache cypress
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-cypress
-        with:
-          # caching node_modules
-          path: Cypress
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-
-  e2e-tests:
+  Test:
     runs-on: ubuntu-latest
     needs: build-project
     steps:
       - name: Build project
         uses: actions/checkout@v3
 
-      - uses: actions/cache@v3
+      - name: cache
+        uses: actions/cache@v3
         with:
           path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-
-      - uses: actions/cache@v3
-        with:
-          path: Cypress
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-
-      - name: Run E2E
-        run: npm run e2e:headless
-
-      - name: Saving the video
-        uses: actions/upload-artifact@v3
-        if: ${{ always() }}
-        with:
-          name: cypress-videos
-          path : cypress/videos
-
-
-
-      - uses: actions/cache@v3
-        with:
-          path: Cypress
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Run E2E
         run: npm run e2e:headless
