@@ -13,6 +13,10 @@ jobs:
           npm install
           npm run build
 
+  e2e-tests:
+    runs-on: ubuntu-latest
+    needs: build-project
+    steps:
       - name: E2E tests
         run: |
           npm run e2e
