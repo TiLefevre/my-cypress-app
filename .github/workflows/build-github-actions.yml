@@ -45,3 +45,21 @@ jobs:
         with:
           name: cypress-videos
           path : cypress/videos
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Get secret
+        run: echo ${{ secrets.SECRET_KEY }} > secret.pem
+      - name: Connect to ssh
+        run: |
+          chmod 600 secret.pem
+          ssh -o StrictHostKeyChecking=no -i secret.pem ubuntu@44.202.120.253
+      - name: Deploy
+        run: |
+          fuser -k 3000/tcp
+          cd my-cypress-app
+          git pull
+          npm install
+          npm run build
+          npm run start
