@@ -34,7 +34,7 @@
 }
 
 .title a {
-  color: red;
+  color: mediumpurple;
   text-decoration: none;
 }
 
@@ -93,8 +93,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: red;
-  border-color: red;
+  color: mediumpurple;
+  border-color: mediumpurple;
 }
 
 .card h2 {
