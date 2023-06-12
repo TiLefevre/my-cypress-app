@@ -5,21 +5,16 @@ jobs:
   build-project:
     runs-on: ubuntu-latest
     steps:
-      - name: Build project
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project assets
-        run: npm run build
-
-      - name: Run E2E
-        run: npm run e2e:headless
-
-      - name: Saving the video
+      - uses: actions/checkout@v3
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
+      - name: E2E tests
+        run: |
+          npm run e2e
         uses: actions/upload-artifact@v3
-        if: ${{ always() }}
+        if: always()
         with:
-          name: cypress-videos
-          path : cypress/videos
+          name: e2e-tests
+          path: cypress/videos
