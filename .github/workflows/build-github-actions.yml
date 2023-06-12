@@ -54,9 +54,11 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: echo $SECRET_KEY > secret.pem
 
-      - name: Connect to ssh
+      - name: chmod secret
         run: |
           chmod 600 secret.pem
+      - name: Connect to ssh
+        run: |
           ssh -i secret.pem ubuntu@44.202.120.253
 
       - name: Deploy
