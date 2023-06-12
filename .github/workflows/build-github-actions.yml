@@ -12,4 +12,4 @@ jobs:
       - name: Install
         run: npm install
       - name: Build
-        run: next build --if-present
+        run: npm run build --if-present
