@@ -57,3 +57,20 @@ jobs:
         with:
           name: cypress-videos
           path : cypress/videos
+
+
+
+      - uses: actions/cache@v3
+        with:
+          path: Cypress
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      - name: Run E2E
+        run: npm run e2e:headless
+
+      - name: Saving the video
+        uses: actions/upload-artifact@v3
+        if: ${{ always() }}
+        with:
+          name: cypress-videos
+          path : cypress/videos
