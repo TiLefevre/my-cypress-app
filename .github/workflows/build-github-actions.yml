@@ -47,6 +47,7 @@ jobs:
           path : cypress/videos
   deploy:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
