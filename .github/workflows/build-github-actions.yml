@@ -5,6 +5,19 @@ jobs:
   build-project:
     runs-on: ubuntu-latest
     steps:
+      - name: Cache node modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          # caching node_modules
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
       - name: Build project
         uses: actions/checkout@v3
 
@@ -13,6 +26,7 @@ jobs:
 
       - name: Build project assets
         run: npm run build
+
 
   e2e-tests:
     runs-on: ubuntu-latest
