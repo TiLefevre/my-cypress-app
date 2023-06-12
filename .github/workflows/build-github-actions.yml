@@ -54,16 +54,12 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: echo $SECRET_KEY > secret.pem
 
-      - name: Configure SSH
+      - name: chmod secret
         run: |
-            mkdir -p ~/.ssh/
-            echo ${{ secrets.SECRET_KEY }} > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
-            ssh-keyscan -H 44.202.120.253 >> ~/.ssh/known_hosts
-
+          chmod 600 secret.pem
       - name: Connect to ssh
         run: |
-          ssh ubuntu@44.202.120.253 "echo 'Connected via SSH'"
+          ssh -o StrictHostKeyChecking=no -i secret.pem ubuntu@44.202.120.253
 
       - name: Deploy
         run: |
