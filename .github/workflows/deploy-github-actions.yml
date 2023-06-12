@@ -1,4 +1,4 @@
-name: build-github-actions
+name: deploy-github-actions
 run-name: Build by -> ${{ github.actor }}
 on: [push]
 jobs:
