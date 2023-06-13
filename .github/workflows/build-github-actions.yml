@@ -56,8 +56,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd my-cypress-app
-            git pull
-            npm install
-            npm run build
-            pm2 restart all
+            docker build -t nodejs-my-website .
+            docker run -d -p 3000:3000 nodejs-my-website
