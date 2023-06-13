@@ -79,5 +79,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: .
+          file: ./Dockerfile
           push: true
-          tags: ghcr.io/nodejs-my-website:latest
+          tags: ghcr.io/${{ github.repository }}/nodejs-my-website:latest
