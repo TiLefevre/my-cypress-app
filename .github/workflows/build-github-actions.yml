@@ -49,6 +49,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nodejs-my-website:latest
+
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
@@ -56,5 +71,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker build -t nodejs-my-website .
-            docker run -d -p 3000:3000 nodejs-my-website
+            docker stop nodejs-my-website
+            docker rm nodejs-my-website
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/nodejs-my-website:latest
+            docker run -d --name nodejs-my-website -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/nodejs-my-website:latest
+            
