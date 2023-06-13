@@ -62,7 +62,6 @@ jobs:
             npm run build
             pm2 restart all
   build-docker:
-    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Login to Docker Hub
