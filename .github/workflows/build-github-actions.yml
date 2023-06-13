@@ -71,17 +71,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-docker
     steps:
-      - name: executing remote ssh commands using password
-        uses: webfactory/ssh-agent@v0.8.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
-        run:  |
+      - run:  |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
           cd my-next-website && \
           docker pull ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest && \
           docker stop nodejs-my-website && \
           docker rm nodejs-my-website && \
           docker run -d -p 3000:3000 ghcr.io/tilefevre/my-cypress-app/nodejs-my-website "
-            
+          
 
  
