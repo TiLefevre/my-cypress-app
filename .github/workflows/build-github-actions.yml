@@ -78,6 +78,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            cd my-cypress-app
             docker compose -f docker-compose.prod.yml up -d --pull always
             
           
