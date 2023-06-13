@@ -82,4 +82,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/tilefevre/my-cypress-app:latest
+          tags: ghcr.io/tilefevre/${{ github.repository }}:latest
