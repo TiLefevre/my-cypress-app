@@ -78,8 +78,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker stop $(docker ps -a -q)
-            docker rm $(docker ps -a -q)
+            docker stop nodejs-my-website
+            docker rm nodejs-my-website
             docker pull ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest
             docker run -d -p 3000:3000 ghcr.io/tilefevre/my-cypress-app/nodejs-my-website
             
