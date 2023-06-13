@@ -78,11 +78,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.ACCESS_TOKEN_GH }}
-            docker stop cicd-cours
-            docker rm ${{ github.repository }}
-            docker pull ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest
-            docker run -d -p 3000:3000 ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest
+            docker compose -f docker-compose.yml up -d --pull always
+            
           
 
  

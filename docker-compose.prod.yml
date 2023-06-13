@@ -1,0 +1,6 @@
+services:
+  next:
+    image: ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest
+    restart: always
+    ports:
+      - 3000:3000
