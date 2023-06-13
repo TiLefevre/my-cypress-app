@@ -75,6 +75,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - run:  |
+          ls -la
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
           cd my-next-website && \
           docker pull ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest && \
