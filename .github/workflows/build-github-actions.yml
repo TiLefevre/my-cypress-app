@@ -78,7 +78,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker compose -f docker-compose.yml up -d --pull always
+            docker compose -f docker-compose.prod.yml up -d --pull always
             
           
 
