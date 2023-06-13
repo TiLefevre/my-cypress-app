@@ -78,7 +78,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd my-cypress-app
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
             docker pull ghcr.io/tilefevre/my-cypress-app/nodejs-my-website:latest
