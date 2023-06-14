@@ -76,6 +76,7 @@ jobs:
       - run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
           cd my-cypress-app && \
+          ls && \
           sudo docker compose -f docker-compose.prod.yml up -d --pull always"
 
 
