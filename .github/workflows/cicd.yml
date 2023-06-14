@@ -47,9 +47,6 @@ jobs:
 #          pm2 restart all"
   build-push-docker:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v3
       - name: Login to GitHub Container Registry
